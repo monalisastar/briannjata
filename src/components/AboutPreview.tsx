@@ -6,59 +6,91 @@ import { motion } from 'framer-motion';
 
 const AboutPreview = () => {
   return (
-    <section className="w-full py-20 px-6 md:px-12 flex justify-center relative overflow-hidden bg-gradient-to-br from-[#0b0f2f] to-[#091930]">
-      {/* Floating identity badge */}
-      <div className="absolute top-6 left-6 z-10 bg-blue-500/10 text-blue-100 border border-blue-300/20 backdrop-blur-md px-4 py-1 rounded-full text-sm shadow-md">
-        Visionary Engineer · FLR | Eco-Mentor | Freelancers Palace
-      </div>
+    <section className="relative w-full bg-[#0B0F1C] text-white overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 py-24">
 
-      {/* Motion wrapper */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="bg-blue-500/10 backdrop-blur-2xl border border-blue-300/20 shadow-[0_0_60px_#3b82f6] rounded-3xl p-8 w-full max-w-5xl flex flex-col md:flex-row items-center gap-10 z-10"
-      >
-        {/* Profile Photo with glow */}
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="relative w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-blue-300/30 shadow-[0_0_30px_#3b82f6] hover:shadow-[0_0_50px_#60a5fa] transition"
-        >
-          <Image
-            src="/brian.jpg"
-            alt="Brian Njata profile photo"
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-
-        {/* Text content */}
-        <div className="text-center md:text-left text-blue-100">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-            Meet Brian Njata
-          </h2>
-
-          <p className="text-md md:text-lg text-blue-100/90 leading-relaxed max-w-2xl">
-            I’m Brian Njata — a full-stack engineer, founder, and visionary building sustainable digital systems at the intersection of
-            <span className="font-semibold text-white"> AI, Climate Tech, and Web3.</span> With roots in
-            <span className="font-medium"> Project Management (JKUAT)</span> and
-            <span className="font-medium"> Law (MKU)</span>, I use code as a bridge between innovation and impact — crafting scalable tools that serve people and planet.
-          </p>
-
-          <Link
-            href="/about"
-            className="mt-6 inline-block bg-blue-500 text-white px-6 py-2 rounded-xl hover:bg-blue-600 transition font-medium shadow-md"
-          >
-            Read More
-          </Link>
+        {/* Section label */}
+        <div className="mb-10 text-sm uppercase tracking-widest text-blue-300/60">
+          About
         </div>
-      </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="
+            relative
+            bg-white/5
+            border border-blue-400/20
+            backdrop-blur-md
+            rounded-2xl
+            p-8 md:p-12
+            flex flex-col md:flex-row
+            items-center gap-12
+            shadow-[0_0_40px_rgba(59,130,246,0.25)]
+          "
+        >
+          {/* Ambient glow */}
+          <div
+            aria-hidden
+            className="
+              absolute -inset-1
+              rounded-2xl
+              bg-gradient-to-br from-blue-500/20 via-transparent to-purple-500/20
+              blur-2xl
+              opacity-60
+              pointer-events-none
+            "
+          />
+
+          {/* Profile image */}
+          <div className="relative z-10 w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border border-blue-300/30 shadow-[0_0_25px_rgba(59,130,246,0.35)] shrink-0">
+            <Image
+              src="/brian.jpg"
+              alt="Brian Njata"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+
+          {/* Text content */}
+          <div className="relative z-10 text-center md:text-left max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2 leading-tight">
+              Hi, I’m Brian Njata
+            </h2>
+
+            <p className="text-sm uppercase tracking-widest text-blue-400/70 mb-4">
+              AI-Native Product Builder
+            </p>
+
+            <p className="text-lg text-blue-100/90 leading-relaxed">
+              I enjoy turning ideas into dependable software people can actually use.
+              My work spans websites, web applications, mobile apps, and automation
+              systems, with a strong focus on clarity, scalability, and long-term
+              maintainability.
+            </p>
+
+            <p className="text-lg text-blue-100/80 leading-relaxed mt-4">
+              Beyond building products, I’m deeply interested in how technology can be
+              applied responsibly—particularly in areas like digital infrastructure,
+              sustainability, and blockchain systems. I’m currently studying smart
+              contract development, with a focus on understanding how decentralized
+              technologies can be designed safely and applied in real-world contexts.
+            </p>
+
+            <Link
+              href="/about"
+              className="inline-block mt-6 text-blue-400 hover:text-blue-300 transition font-medium"
+            >
+              Read more about my background →
+            </Link>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
 
 export default AboutPreview;
-

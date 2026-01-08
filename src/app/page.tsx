@@ -1,57 +1,61 @@
 import Hero from '@/components/Hero';
 import AboutPreview from '@/components/AboutPreview';
+import EngineeringCapabilities from '@/components/EngineeringCapabilities';
 import ProjectsPreview from '@/components/ProjectsPreview';
-import BlogPreview from '@/components/BlogPreview';
 import Services from '@/components/Services';
+import BlogPreview from '@/components/BlogPreview';
 
 export const metadata = {
-  title: 'Brian Njata – Portfolio, Projects & Vision',
+  title: 'Brian Njata – AI-Native Product Builder',
   description:
-    'Explore Brian Njata’s work in AI, Climate, Web3, and Digital Trust. Projects, blog, business ventures, and recovery story.',
-  keywords: [
-    'Brian Njata',
-    'Eco-Mentor',
-    'Freelancers Palace',
-    'FLR Trust',
-    'Web3 developer',
-    'Climate tech',
-    'AI ethics',
-    'Smart escrow',
-    'briannjata.org',
-    'Kilimofresh',
-    'Supacare Solutions',
-  ],
+    'Brian Njata is an AI-native product builder designing and shipping dependable software systems using modern web frameworks, systems-first thinking, and responsible technology practices.',
+
   openGraph: {
-    title: 'Brian Njata – Visionary Developer & Builder',
+    title: 'Brian Njata – AI-Native Product Builder',
     description:
-      'Founder of Eco-Mentor, Freelancers Palace, and FLR Trust Labs. Explore his work and writing.',
-    url: 'https://briannjata.org',
-    siteName: 'briannjata.org',
+      'Designing and shipping dependable software systems using systems-first thinking, modern web frameworks, and AI-assisted development.',
     type: 'website',
+    locale: 'en_US',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Brian Njata – AI-Native Product Builder',
+    description:
+      'AI-native product builder focused on systems design, real-world software delivery, and responsible technology.',
   },
 };
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen w-full bg-gradient-to-br from-[#0B0F1C] via-[#101828] to-[#1B2735] text-white px-4 md:px-8 py-8">
-      <div className="max-w-7xl mx-auto space-y-24">
-        <div className="bg-[#1E263B]/60 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-12">
-          <Hero />
-        </div>
-        <div className="bg-[#1E263B]/60 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-12">
-          <AboutPreview />
-        </div>
-        <div className="bg-[#1E263B]/60 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-12">
-          <ProjectsPreview />
-        </div>
-        <div className="bg-[#1E263B]/60 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-12">
-          <Services />
-        </div>
-        <div className="bg-[#1E263B]/60 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-12">
-          <BlogPreview />
-        </div>
-      </div>
-    </main>
+    <>
+      {/* HERO */}
+      <Hero />
+
+      {/* ABOUT */}
+      <section id="about">
+        <AboutPreview />
+      </section>
+
+      {/* CAPABILITIES */}
+      <section id="capabilities">
+        <EngineeringCapabilities />
+      </section>
+
+      {/* PROJECTS */}
+      <section id="projects">
+        <ProjectsPreview />
+      </section>
+
+      {/* SERVICES */}
+      <section id="services">
+        <Services />
+      </section>
+
+      {/* WRITING */}
+      <section id="blog">
+        <BlogPreview />
+      </section>
+    </>
   );
 }
-

@@ -1,130 +1,155 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
-  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/blogs' },
-  { label: 'Services', href: '/services' },
-  { label: 'Projects', href: '/projects' }, // ✅ Added Projects
+  { label: 'Systems', href: '/systems' },
+  { label: 'Capabilities', href: '/capabilities' },
+  { label: 'Work', href: '/work' },
+  { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact' },
 ];
 
-const Navbar = () => {
-  const pathname = usePathname();
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [hidden, setHidden] = useState(false);
 
+  const lastScrollY = useRef(0);
+
+  // Scroll detection + hide/show
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+
+      setScrolled(currentY > 20);
+
+      if (currentY > lastScrollY.current && currentY > 80) {
+        // scrolling down
+        setHidden(true);
+      } else {
+        // scrolling up
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Lock body scroll when mobile menu open
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const active = stored || (prefersDark ? 'dark' : 'light');
-    setTheme(active);
-    document.documentElement.classList.toggle('dark', active === 'dark');
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-  };
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
 
   return (
     <>
+      {/* ===== NAVBAR ===== */}
       <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className={`sticky top-0 z-50 px-6 md:px-12 py-4 flex items-center justify-between transition-all duration-300 ${
-          scrolled
-            ? 'bg-[#0a0f2c]/80 dark:bg-black/70 backdrop-blur-lg shadow-lg'
-            : 'bg-[#0a0f2c]/40 dark:bg-black/40 backdrop-blur-md'
-        }`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{
+          y: hidden ? -96 : 0,
+          opacity: hidden ? 0 : 1,
+        }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className={`
+          fixed top-0 inset-x-0 z-[100]
+          px-6 md:px-12 py-4
+          flex items-center justify-between
+          bg-[#0B0F1C]/90 backdrop-blur
+          ${scrolled ? 'border-b border-white/10' : ''}
+        `}
       >
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/logo.png" alt="Logo" width={36} height={36} className="rounded-full" />
-          <span className="hidden md:inline-block text-white font-bold text-lg dark:text-white">
+        {/* Brand / Home */}
+        <Link href="/" className="flex items-center gap-4">
+          <Image
+            src="/images/logo.png"
+            alt="Brian Njata"
+            width={56}
+            height={56}
+            priority
+            className="object-contain"
+          />
+
+          {/* Name hidden on small screens */}
+          <span className="hidden md:inline text-white font-semibold text-lg tracking-tight">
             Brian Njata
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-6 text-sm md:text-base text-white dark:text-white">
-          {navItems.map(({ label, href }) => (
+        {/* Desktop nav */}
+        <div className="hidden md:flex gap-8 text-sm text-white/80">
+          {navItems.map(item => (
             <Link
-              key={href}
-              href={href}
-              className={`hover:text-blue-300 transition ${
-                pathname === href ? 'text-blue-400 font-semibold' : ''
-              }`}
+              key={item.href}
+              href={item.href}
+              className="hover:text-white transition-colors"
             >
-              {label}
+              {item.label}
             </Link>
           ))}
         </div>
 
-        {/* Theme Toggle & Hamburger */}
-        <div className="flex items-center gap-4">
-          <button onClick={toggleTheme} className="text-white text-xl" aria-label="Toggle Theme">
-            {theme === 'dark' ? '🌞' : '🌙'}
-          </button>
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="text-white md:hidden"
-            aria-label="Open Menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="md:hidden text-white text-2xl"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
       </motion.nav>
 
-      {/* Fullscreen Mobile Navigation */}
+      {/* ===== MOBILE MENU ===== */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.4 }}
-            className="fixed inset-0 z-50 bg-[#0a0f2c]/90 dark:bg-black/90 backdrop-blur-lg text-white flex flex-col justify-center items-center space-y-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] bg-[#0B0F1C]"
           >
-            <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-6 text-3xl">
-              ✖️
-            </button>
-            {navItems.map(({ label, href }) => (
-              <Link
-                key={href}
-                href={href}
+            {/* Close */}
+            <div className="flex justify-end px-6 py-6">
+              <button
                 onClick={() => setMenuOpen(false)}
-                className={`text-2xl hover:text-blue-300 transition ${
-                  pathname === href ? 'text-blue-400 font-semibold' : ''
-                }`}
+                className="text-white text-3xl"
+                aria-label="Close menu"
               >
-                {label}
-              </Link>
-            ))}
+                ×
+              </button>
+            </div>
+
+            {/* Mobile links */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col items-center justify-center gap-8 h-[calc(100vh-6rem)]"
+            >
+              {navItems.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-2xl text-white/90 hover:text-white transition"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
-};
-
-export default Navbar;
-
+}
