@@ -1,6 +1,11 @@
 import ArticleClient from './ArticleClient';
 
 /* =========================
+   DATE HELPERS
+========================= */
+const today = new Date().toISOString().split('T')[0];
+
+/* =========================
    METADATA (SEO)
 ========================= */
 export const metadata = {
@@ -13,6 +18,14 @@ export const metadata = {
     description:
       'A first-person account of panic, loss of control, and the moment recovery began.',
     type: 'article',
+    images: [
+      {
+        url: 'https://briannjata.org/images/panic-01-exam-hall.png',
+        width: 1200,
+        height: 630,
+        alt: 'Exam hall where the first panic attack occurred',
+      },
+    ],
   },
 };
 
@@ -35,8 +48,8 @@ export default function Page() {
               '@type': 'Person',
               name: 'Brian Njata',
             },
-            datePublished: '2026-01-10',
-            dateModified: '2026-01-10',
+            datePublished: today,
+            dateModified: today,
             image:
               'https://briannjata.org/images/panic-01-exam-hall.png',
             mainEntityOfPage: {
@@ -47,7 +60,6 @@ export default function Page() {
             articleSection: 'Panic & Recovery',
             keywords: [
               'panic attack',
-              'first panic attack',
               'panic disorder',
               'nervous system overload',
               'mental health lived experience',

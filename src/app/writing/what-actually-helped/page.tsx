@@ -1,6 +1,11 @@
 import ArticleClient from './ArticleClient';
 
 /* =========================
+   DATE HELPERS
+========================= */
+const today = new Date().toISOString().split('T')[0];
+
+/* =========================
    METADATA (SEO)
 ========================= */
 export const metadata = {
@@ -13,6 +18,14 @@ export const metadata = {
     description:
       'An honest reflection on what helped during panic recovery when nothing else seemed to work.',
     type: 'article',
+    images: [
+      {
+        url: 'https://briannjata.org/images/panic-11-quiet-morning.png',
+        width: 1200,
+        height: 630,
+        alt: 'Quiet morning during panic recovery',
+      },
+    ],
   },
 };
 
@@ -35,8 +48,8 @@ export default function Page() {
               '@type': 'Person',
               name: 'Brian Njata',
             },
-            datePublished: '2026-01-18',
-            dateModified: '2026-01-18',
+            datePublished: today,
+            dateModified: today,
             image:
               'https://briannjata.org/images/panic-11-quiet-morning.png',
             mainEntityOfPage: {

@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import PanicSystemStabilityClient from './PanicSystemStabilityClient';
 
+/* =========================
+   DATE HELPERS
+========================= */
+const today = new Date().toISOString().split('T')[0];
+
+/* =========================
+   METADATA (SEO)
+========================= */
 export const metadata: Metadata = {
   title: 'What Panic Taught Me About System Stability and Failure Modes',
   description:
@@ -33,8 +41,8 @@ export default function Page() {
               '@type': 'Person',
               name: 'Brian Njata',
             },
-            datePublished: '2025-07-01',
-            dateModified: '2025-07-01',
+            datePublished: today,
+            dateModified: today,
             articleSection: 'Systems & Thinking',
             keywords: [
               'systems thinking',
@@ -108,6 +116,9 @@ export default function Page() {
         }}
       />
 
+      {/* =========================
+          CLIENT ARTICLE
+      ========================= */}
       <PanicSystemStabilityClient />
     </>
   );

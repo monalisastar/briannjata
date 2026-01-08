@@ -1,6 +1,11 @@
 import ArticleClient from './ArticleClient';
 
 /* =========================
+   DATE HELPERS
+========================= */
+const today = new Date().toISOString().split('T')[0];
+
+/* =========================
    METADATA (SEO)
 ========================= */
 export const metadata = {
@@ -13,6 +18,14 @@ export const metadata = {
     description:
       'An honest account of the confusing recovery phase after panic attacks, when function returns before feeling.',
     type: 'article',
+    images: [
+      {
+        url: 'https://briannjata.org/images/panic-09-quiet-morning.png',
+        width: 1200,
+        height: 630,
+        alt: 'Quiet morning during panic recovery',
+      },
+    ],
   },
 };
 
@@ -35,8 +48,8 @@ export default function Page() {
               '@type': 'Person',
               name: 'Brian Njata',
             },
-            datePublished: '2026-02-02',
-            dateModified: '2026-02-02',
+            datePublished: today,
+            dateModified: today,
             image:
               'https://briannjata.org/images/panic-09-quiet-morning.png',
             mainEntityOfPage: {
@@ -50,7 +63,7 @@ export default function Page() {
               'false recovery phase',
               'panic disorder',
               'nervous system recovery',
-              'feeling numb after panic',
+              'emotional numbness after panic',
             ],
           }),
         }}
