@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import ShareActions from './ShareActions';
 
 export const metadata = {
   title: 'Why Panic Feels Like Death (But Isn’t)',
   description:
     'Why panic attacks feel life-threatening, especially at night, and why intensity does not mean danger — written from lived experience.',
-
   openGraph: {
     title: 'Why Panic Feels Like Death (But Isn’t)',
     description:
@@ -42,13 +42,6 @@ export default function WhyPanicFeelsLikeDeath() {
                 'https://briannjata.org/writing/why-panic-feels-like-death-but-isnt',
             },
             articleSection: 'Panic & Recovery',
-            keywords: [
-              'panic attack feels like dying',
-              'panic attack heart racing',
-              'panic attack at night',
-              'fear of death anxiety',
-              'panic disorder explanation',
-            ],
           }),
         }}
       />
@@ -81,71 +74,6 @@ export default function WhyPanicFeelsLikeDeath() {
                 name: 'Why Panic Feels Like Death (But Isn’t)',
                 item:
                   'https://briannjata.org/writing/why-panic-feels-like-death-but-isnt',
-              },
-            ],
-          }),
-        }}
-      />
-
-      {/* =========================
-          SERIES SCHEMA
-          (Panic & Recovery)
-      ========================= */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'CreativeWorkSeries',
-            name: 'Panic & Recovery',
-            description:
-              'A first-person series documenting panic attacks, nervous system dysregulation, and recovery through lived experience.',
-            creator: {
-              '@type': 'Person',
-              name: 'Brian Njata',
-            },
-            hasPart: [
-              {
-                '@type': 'Article',
-                name: 'The Day My Nervous System Broke',
-                url:
-                  'https://briannjata.org/writing/the-day-my-nervous-system-broke',
-              },
-              {
-                '@type': 'Article',
-                name: 'Why Panic Feels Like Death (But Isn’t)',
-                url:
-                  'https://briannjata.org/writing/why-panic-feels-like-death-but-isnt',
-              },
-              {
-                '@type': 'Article',
-                name: 'The False Recovery Phase No One Warns You About',
-                url:
-                  'https://briannjata.org/writing/the-false-recovery-phase',
-              },
-              {
-                '@type': 'Article',
-                name: 'What Made My Panic Worse',
-                url:
-                  'https://briannjata.org/writing/what-made-my-panic-worse',
-              },
-              {
-                '@type': 'Article',
-                name: 'What Actually Helped',
-                url:
-                  'https://briannjata.org/writing/what-actually-helped',
-              },
-              {
-                '@type': 'Article',
-                name: 'Living Normally While Still Not Feeling Normal',
-                url:
-                  'https://briannjata.org/writing/living-normally-without-feeling-normal',
-              },
-              {
-                '@type': 'Article',
-                name: 'What I Would Tell Someone One Week Into Panic',
-                url:
-                  'https://briannjata.org/writing/what-i-would-tell-someone-one-week-in',
               },
             ],
           }),
@@ -199,7 +127,7 @@ export default function WhyPanicFeelsLikeDeath() {
               />
             </div>
 
-            {/* Intro — Humanized */}
+            {/* ARTICLE BODY */}
             <div className="space-y-6 text-lg leading-relaxed text-white/90">
               <p>
                 If you found this at 3 a.m., heart pounding, Googling symptoms
@@ -249,9 +177,7 @@ export default function WhyPanicFeelsLikeDeath() {
                 It felt like I was losing my mind.
               </p>
 
-              <p>
-                I wasn’t.
-              </p>
+              <p>I wasn’t.</p>
 
               <p id="death-thoughts">
                 Night brought darker thoughts.
@@ -262,8 +188,8 @@ export default function WhyPanicFeelsLikeDeath() {
 
               <p>
                 Around May, head pressure appeared — like a tight band pulling
-                from the back forward. Sunlight felt threatening. The label was
-                agoraphobia. The sensation still exists.
+                from the back forward. Sunlight felt threatening.
+                The label was agoraphobia. The sensation still exists.
               </p>
 
               <p>
@@ -287,27 +213,10 @@ export default function WhyPanicFeelsLikeDeath() {
               </p>
             </div>
 
-            {/* Share */}
+            {/* SHARE */}
             <div className="mt-20 pt-8 border-t border-white/10">
               <p className="text-sm text-white/60 mb-3">Share this</p>
-              <div className="flex gap-4 text-sm">
-                <a
-                  href="https://twitter.com/intent/tweet?text=Why%20Panic%20Feels%20Like%20Death%20(But%20Isn’t)&url=https://briannjata.org/writing/why-panic-feels-like-death"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white"
-                >
-                  Share on X
-                </a>
-                <button
-                  onClick={() =>
-                    navigator.clipboard.writeText(window.location.href)
-                  }
-                  className="hover:text-white"
-                >
-                  Copy link
-                </button>
-              </div>
+              <ShareActions />
             </div>
 
           </article>
